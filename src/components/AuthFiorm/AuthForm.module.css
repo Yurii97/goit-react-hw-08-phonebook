@@ -1,0 +1,17 @@
+.form{
+    padding: 15px;
+    margin: 50px auto;    
+    width: 350px;
+    border: 2px solid gray; 
+    border-radius: 20px;
+}
+
+.btnList{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.link{
+    display: block;
+    text-align: center;    
+}

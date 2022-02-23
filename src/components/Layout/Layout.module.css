@@ -1,0 +1,23 @@
+.nav{
+    display: flex;
+    height: 50px;
+    justify-content: end;
+    padding: 5px;
+    border-bottom: 2px solid gray;
+}
+
+.navLinc {
+    padding: 5px 10px;
+    /* border: 1px solid black; */
+    /* border-radius: 10px; */
+    text-decoration: none;
+    color: black;
+    margin-right: 15px;
+    font-size: 18px;    
+}
+.navLinc:hover {
+    color: #0d6efd;   
+}
+.navLinc:focus {
+border-bottom: 5px solid #0d6efd;
+}

@@ -7,3 +7,6 @@ import * as contactsAction from './contacts-actions';
   [contactsAction.filterAct]: (_, { payload }) => payload,
 });
 
+export const token = createReducer('', {
+  [contactsAction.tokenAct]: (_, { payload }) => payload
+});

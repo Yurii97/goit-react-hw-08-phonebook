@@ -8,7 +8,7 @@ export default function ContactList() {
   const { filter} = useSelector(state=>state)
   
   const { data, error, isError, isFetching } = useGetContactQuery();
-  
+  // console.log(data);
   
   return (
     <>

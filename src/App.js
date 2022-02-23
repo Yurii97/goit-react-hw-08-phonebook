@@ -1,21 +1,24 @@
-import { Toaster } from 'react-hot-toast';
-// import { Routes, Route, Link } from "react-router-dom";
-import Filter from './components/Filter/Filter';
-import ContactList from './components/ContactList/ContactList';
-import ContactForm from './components/ContactForm/ContactForm';
+import { Routes, Route, Navigate } from "react-router-dom";
+// import Layout from 'components/Layout/Layout';
+import AuthPage from "page/AuthPage";
+import Login from "components/Login/Login";
+import Registration from "components/Registration/Registration";
+import PhoneBookPage from "page/PhoneBookPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   
   return (
     <>
-      {/* <Routes> */}
-        <Toaster />
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <h2>Contacts</h2>
-        <Filter />
-        <ContactList />
-      {/* </Routes> */}
+      <Routes>
+        <Route path='/' element={<AuthPage />} >
+          {/* <Route index element={<Layout />} /> */}
+          <Route path='login' element={<Login />} />
+          <Route path="register" element={<Registration />} />
+          <Route path="contacts" element={<PhoneBookPage />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </>
   );
 }
