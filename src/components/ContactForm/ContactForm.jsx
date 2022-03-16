@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import { FormStyled } from './ContactForm.styled';
+import { Form, Button } from 'react-bootstrap';
 import toast from 'react-hot-toast';
-import {useGetContactQuery, useAddContactMutation } from 'services/contactsApi';
+import {useGetContactsQuery, useAddContactMutation, useChangeContactMutation } from 'services/contactsApi';
 import Spiner from 'components/Spiner/Spiner';
+import { useSelector } from 'react-redux';
+import s from './ContactForm.module.css'
 
-export default function ContactForm() {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const [addContact, {isLoading}] = useAddContactMutation();
-  const { data } = useGetContactQuery();
+export default function ContactForm({ onClose, nameCont, numberCont, id }) {
+  const [name, setName] = useState(nameCont);
+  const [number, setNumber] = useState(numberCont);
+  const [addContact, { isLoading }] = useAddContactMutation();
+  const { token } = useSelector(state => state);
+  const { data } = useGetContactsQuery(token);
+  const [changeContact] = useChangeContactMutation();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -26,13 +30,25 @@ export default function ContactForm() {
 
   const submitForm = e => {
     e.preventDefault();
+    if (name.trim() === '' || number.trim() === '') {
+      toast.error('values ​​are invalid')
+      return
+    }
     const newContact = {      
-      name,
-      phone: number,
+      "name":name,
+      "number":number,
     };
+    if (id) {
+      changeContact({ id, token, newContact })
+      setNumber('');
+      setName('');
+      onClose();
+      return;
+    }
     addNewContact(newContact);
     setNumber('');
     setName('');
+    onClose();
   };
 
   const addNewContact = newContact => {
@@ -44,41 +60,34 @@ export default function ContactForm() {
       toast.error('contact with such name already exists');
       return;
     }
-    addContact(newContact);
+    addContact({token, newContact});
     toast.success('contact added');
   };
 
   return (
-    <>
-      <FormStyled onSubmit={submitForm}>
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            value={name}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
-        <label>
-          Number
-          <input
-            type="tel"
-            name="number"
-            onChange={handleChange}
-            value={number}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-        </label>
-        <button type="submit" disabled={isLoading} >
-          {isLoading && <Spiner size={12}/>}
-          Add contact</button>
-      </FormStyled>
+    <>    
+      <Form className={s.form} onSubmit={submitForm}>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control type="text" name="name" value={name} placeholder="Enter name" onChange={handleChange} />
+          <Form.Text className="text-muted">
+Enter name          </Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicNumber">
+          <Form.Label>Number</Form.Label>
+          <Form.Control type="tel" name="number" value={number} placeholder="number" onChange={handleChange} />
+          <Form.Text className="text-muted">
+Enter phone number          </Form.Text>
+        </Form.Group>
+        <div className={s.btnList}>
+          <Button variant="primary" type="submit" >
+            {id ? 'Rename Contact' : 'Add contact'}
+          </Button>
+        </div>
+        <div className={s.link}>
+          {isLoading && <Spiner size={25} />}
+        </div>        
+      </Form>
     </>
   );
 }

@@ -2,13 +2,11 @@ import Contact from 'components/Contact/Contact';
 import { ListStyled, ErrorMasage } from './ContactList.styled';
 import {   useSelector } from 'react-redux'
 import Spiner from "components/Spiner/Spiner"
-import {useGetContactQuery, } from 'services/contactsApi'
+import {useGetContactsQuery, } from 'services/contactsApi'
 
 export default function ContactList() {
-  const { filter} = useSelector(state=>state)
-  
-  const { data, error, isError, isFetching } = useGetContactQuery();
-  // console.log(data);
+  const { filter, token} = useSelector(state=>state)
+  const { data, error, isError, isFetching } = useGetContactsQuery(token);
   
   return (
     <>
@@ -20,12 +18,12 @@ export default function ContactList() {
             .filter(contact =>
               contact.name.toLowerCase().includes(filter.toLowerCase())
             )
-            .map(({ id, name, phone }) => (
+            .map(({ id, name, number }) => (
               <li key={id}>
                 <Contact
                   id={id}
                   name={name}
-                  phone={phone}
+                  number={number}
                 />
               </li>
             ))}

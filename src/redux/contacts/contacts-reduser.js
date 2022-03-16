@@ -10,3 +10,7 @@ import * as contactsAction from './contacts-actions';
 export const token = createReducer('', {
   [contactsAction.tokenAct]: (_, { payload }) => payload
 });
+
+export const isLoggedIn = createReducer(false, {
+  [contactsAction.logAct]: (_, { payload }) => payload
+});

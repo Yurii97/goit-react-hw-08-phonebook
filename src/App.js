@@ -1,18 +1,31 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-// import Layout from 'components/Layout/Layout';
+import { Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import AuthPage from "page/AuthPage";
 import Login from "components/Login/Login";
 import Registration from "components/Registration/Registration";
-import PhoneBookPage from "page/PhoneBookPage";
+import PhoneBookPage from "page/PhoneBookPage/PhoneBookPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect } from "react";
+import {logAct} from 'redux/contacts/contacts-actions'
+import {useGetUserQuery} from 'services/authApi'
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { token } = useSelector(state => state);
+  const { data } = useGetUserQuery(token);
   
+  useEffect(() => {
+    if (token !== "") {
+      data && navigate('/contacts')
+      dispatch(logAct(true));
+    }
+  }, [token, data]);
+
   return (
     <>
       <Routes>
         <Route path='/' element={<AuthPage />} >
-          {/* <Route index element={<Layout />} /> */}
           <Route path='login' element={<Login />} />
           <Route path="register" element={<Registration />} />
           <Route path="contacts" element={<PhoneBookPage />} />
