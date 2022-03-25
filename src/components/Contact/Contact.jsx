@@ -25,10 +25,12 @@ export default function Contact({ id, name, number }) {
   
   return (
     <div className={s.contact}>
-      <span>
-        {name} : {number}
-      </span>
-      {isLoading && <Spiner size={12} />}
+      <div>
+      <span className={s.text}>
+        {name}  
+        </span> : {number}        
+      </div>
+      {isLoading && <Spiner size={25} />}
       {showModal && (<Modal onClose={togleModal}>
         <ContactForm onClose={togleModal} nameCont={name} numberCont={number} id={id} />
       </Modal>)}
