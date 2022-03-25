@@ -3,10 +3,10 @@ import { Form, Button } from 'react-bootstrap';
 import Spiner from "components/Spiner/Spiner"
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from 'services/authApi';
-import s from './Login.module.css'
 import {tokenAct, logAct} from 'redux/contacts/contacts-actions'
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
+import s from './Login.module.css'
 
 function Login() {    
     const [userEmail, setUserEmail] = useState('');
@@ -30,7 +30,7 @@ function Login() {
                     return toast.error('Unknworn error.');
             }
         }
-    }, [data, isSuccess, isError, error]);
+    }, [data, isSuccess, isError, error, dispatch, navigate]);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -56,11 +56,16 @@ function Login() {
         setUserEmail('');
         setUserPassword('');
     }
-    return (
-        <Form className={s.form} onSubmit={submitForm}>
+    return (<Form className={s.form} onSubmit={submitForm}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" name="email" value={userEmail} placeholder="Enter email" onChange={handleChange}/>
+            <Form.Control
+                type="email"
+                name="email"
+                value={userEmail}
+                placeholder="Enter email"
+                onChange={handleChange}
+            />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
@@ -68,7 +73,14 @@ function Login() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="password" value={userPassword} placeholder="Password" onChange={handleChange}/>
+            <Form.Control
+                type="password"
+                name="password"
+                value={userPassword}
+                placeholder="Password"
+                onChange={handleChange}
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+            />
             </Form.Group>    
             <div className={s.btnList}>
                 <Button variant="primary" type="submit" >
@@ -77,9 +89,10 @@ function Login() {
             </div>
             <div className={s.link}>
             {isLoading ? <Spiner size={25} />:<Link to="/register" >no account? Register</Link>}
-            </div>
-            
-        </Form>)
+            </div>            
+        </Form>
+    )
+    
 }    
 
 export default Login

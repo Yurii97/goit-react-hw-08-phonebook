@@ -3,3 +3,7 @@
     flex-direction: column;
     align-items: center;
 }
+.add_button{
+    display: inline-flex;
+    align-items: center;
+}

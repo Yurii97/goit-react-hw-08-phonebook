@@ -1,12 +1,12 @@
+import s from './ContactForm.module.css'
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import {useGetContactsQuery, useAddContactMutation, useChangeContactMutation } from 'services/contactsApi';
 import Spiner from 'components/Spiner/Spiner';
 import { useSelector } from 'react-redux';
-import s from './ContactForm.module.css'
 
-export default function ContactForm({ onClose, nameCont, numberCont, id }) {
+export default function ContactForm({ onClose, nameCont='', numberCont='', id }) {
   const [name, setName] = useState(nameCont);
   const [number, setNumber] = useState(numberCont);
   const [addContact, { isLoading }] = useAddContactMutation();
@@ -39,13 +39,10 @@ export default function ContactForm({ onClose, nameCont, numberCont, id }) {
       "number":number,
     };
     if (id) {
-      changeContact({ id, token, newContact })
-      setNumber('');
-      setName('');
-      onClose();
-      return;
+      changeContact({ id, token, newContact })      
+    } else {      
+      addNewContact(newContact);
     }
-    addNewContact(newContact);
     setNumber('');
     setName('');
     onClose();
@@ -69,15 +66,31 @@ export default function ContactForm({ onClose, nameCont, numberCont, id }) {
       <Form className={s.form} onSubmit={submitForm}>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" name="name" value={name} placeholder="Enter name" onChange={handleChange} />
+          <Form.Control
+            type="text"
+            name="name"
+            value={name}
+            placeholder="Enter name"
+            onChange={handleChange}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          />
           <Form.Text className="text-muted">
-Enter name          </Form.Text>
+            Enter name
+          </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicNumber">
           <Form.Label>Number</Form.Label>
-          <Form.Control type="tel" name="number" value={number} placeholder="number" onChange={handleChange} />
+          <Form.Control
+            type="tel"
+            name="number"
+            value={number}
+            placeholder="number"
+            onChange={handleChange}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          />
           <Form.Text className="text-muted">
-Enter phone number          </Form.Text>
+            Enter phone number
+          </Form.Text>
         </Form.Group>
         <div className={s.btnList}>
           <Button variant="primary" type="submit" >
@@ -87,7 +100,7 @@ Enter phone number          </Form.Text>
         <div className={s.link}>
           {isLoading && <Spiner size={25} />}
         </div>        
-      </Form>
+      </Form>    
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import s from './Modal.module.css';
 import PropTypes from 'prop-types';
+import s from './Modal.module.css';
 
 const Modal = ({ onClose, children }) => {
   useEffect(() => {

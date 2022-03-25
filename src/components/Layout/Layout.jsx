@@ -13,11 +13,11 @@ function Layout() {
     const dispatch = useDispatch();
     const {token, isLoggedIn} = useSelector(state=>state)
     const { data } = useGetUserQuery(token);
-    const [logout] = useLogoutMutation();
+    const [logout] = useLogoutMutation(token);
 
     useEffect(() => {        
         !data && navigate('/login')
-},[data])
+},[data, navigate])
 
     const logoutUser = (token) => {
         logout(token)
@@ -28,19 +28,15 @@ function Layout() {
     }
     
     return (<>
-    <Toaster />    
-        <div>
-            <nav className={s.nav}>
-                {!data || !isLoggedIn ?(<div >
+        <Toaster />
+        <nav className={s.layoutNav}>
+            {!data || !isLoggedIn ? (<div >
                 <NavLink to='/login' className={s.navLinc}>Login</NavLink>
                 <NavLink to='/register' className={s.navLinc}>Registration</NavLink>
-                </div>) : (<div className={s.userData}><span >Hello {data.name}</span>
-                        <Button variant="primary" tupe='button' onClick={()=>logoutUser(token)} className={s.button}>LogOut</Button>
-                </div>)}
-                
-            </nav>
-        </div>
-        
+            </div>) : (<div className={s.userData}><span >Hello {data.name}</span>
+                <Button variant="primary" tupe='button' onClick={() => logoutUser(token)} className={s.button}>LogOut</Button>
+            </div>)}            
+        </nav>   
     </>
     );
 }

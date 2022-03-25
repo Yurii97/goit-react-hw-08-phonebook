@@ -2,10 +2,10 @@ import Filter from 'components/Filter/Filter';
 import ContactList from 'components/ContactList/ContactList';
 import ContactForm from 'components/ContactForm/ContactForm';
 import { useState } from 'react';
-import s from './PhoneBookPage.module.css'
 import { Button } from 'react-bootstrap';
 import { BsPersonPlusFill } from "react-icons/bs";
 import Modal from 'components/Modal/Modal';
+import s from './PhoneBookPage.module.css'
 
 function PhoneBookPage() {
 const [showModal, setShowModal] = useState(false);
@@ -19,9 +19,13 @@ const [showModal, setShowModal] = useState(false);
         <Button
             variant="primary"
             tupe='button'
-            onClick={togleModal}
-            className={s.button}>
-            <BsPersonPlusFill /> Add Contact
+            onClick={togleModal}>
+            <div className={s.add_button}>
+                <BsPersonPlusFill />
+                <span>
+            Add Contact
+                </span>
+            </div>
         </Button>
         {showModal && (<Modal onClose={togleModal}>
             <ContactForm onClose={togleModal}/>

@@ -31,7 +31,7 @@ function Registration() {
                     return toast.error('Unknworn error.');
             }
         }
-    }, [data, isSuccess, isError, error]);
+    }, [data, isSuccess, isError, error, dispatch, navigate]);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -66,15 +66,26 @@ function Registration() {
         <Form className={s.form} onSubmit={submitForm}>
             <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" name="name" value={userName} placeholder="Your name" onChange={handleChange}/>
+                <Form.Control
+                    type="text"
+                    name="name"
+                    value={userName}
+                    placeholder="Your name"
+                    onChange={handleChange}
+                    pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                />
                 <Form.Text className="text-muted">
                     What is your name.
                 </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicEmail" >
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" name="email" value={userEmail} placeholder="Enter email" onChange={handleChange}/>
+                <Form.Control type="email" name="email"
+                    value={userEmail}
+                    placeholder="Enter email"
+                    onChange={handleChange}
+                />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
@@ -82,7 +93,14 @@ function Registration() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="password" value={userPassword} placeholder="Password" onChange={handleChange}/>
+                <Form.Control
+                    type="password"
+                    name="password"
+                    value={userPassword}
+                    placeholder="Password"
+                    onChange={handleChange}
+                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                />
             </Form.Group>    
             <div className={s.btnList}>
                 <Button variant="primary" type="submit" className={s.buttonSubm}>
@@ -93,7 +111,8 @@ function Registration() {
             <div className={s.link}>
             {isLoading ? <Spiner size={25} />:<Link to="/login" >You have account? Login</Link>}
             </div>
-        </Form>)
+        </Form>    
+    )
 }
 
 export default Registration

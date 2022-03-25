@@ -1,6 +1,10 @@
-.button{    
+.contact_button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     margin-left: 15px;    
-    padding: 3px 12px;    
+    padding: auto ;    
 }
 .contact{
     display: flex;
