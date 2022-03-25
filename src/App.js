@@ -20,7 +20,7 @@ function App() {
       data && navigate('/contacts')
       dispatch(logAct(true));
     }
-  }, [token, data]);
+  }, [token, data, navigate, dispatch]);
 
   return (
     <>
