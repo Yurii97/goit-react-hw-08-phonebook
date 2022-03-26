@@ -17,7 +17,7 @@ function Registration() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (isSuccess) {
+        if (data) {
             toast.success('You have successfully registered.');
             dispatch(tokenAct(data.token));
             dispatch(logAct(true));
@@ -99,12 +99,10 @@ function Registration() {
                     value={userPassword}
                     placeholder="Password"
                     onChange={handleChange}
-                    // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
                 />
             </Form.Group>    
             <div className={s.btnList}>
                 <Button variant="primary" type="submit" className={s.buttonSubm}>
-                {isLoading && <Spiner size={12}/>}
                     Register
                 </Button>
             </div>

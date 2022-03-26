@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useGetUserQuery, useLogoutMutation} from 'services/authApi';
@@ -15,10 +14,6 @@ function Layout() {
     const { data } = useGetUserQuery(token);
     const [logout] = useLogoutMutation(token);
 
-    useEffect(() => {        
-        !data && navigate('/login')
-},[data, navigate])
-
     const logoutUser = (token) => {
         logout(token)
         dispatch(logAct(false));
@@ -31,8 +26,8 @@ function Layout() {
         <Toaster />
         <nav className={s.layoutNav}>
             {!data || !isLoggedIn ? (<div >
-                <NavLink to='/login' className={s.navLinc}>Login</NavLink>
-                <NavLink to='/register' className={s.navLinc}>Registration</NavLink>
+                <NavLink to='login' className={s.navLinc}>Login</NavLink>
+                <NavLink to='register' className={s.navLinc}>Registration</NavLink>
             </div>) : (<div className={s.userData}><span >Hello {data.name}</span>
                 <Button variant="primary" tupe='button' onClick={() => logoutUser(token)} className={s.button}>LogOut</Button>
             </div>)}            
