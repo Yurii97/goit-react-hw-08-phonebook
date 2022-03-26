@@ -30,8 +30,8 @@ const [showModal, setShowModal] = useState(false);
         {showModal && (<Modal onClose={togleModal}>
             <ContactForm onClose={togleModal}/>
         </Modal>)}        
-        <h2>Contacts</h2>
         <Filter />
+        <h2>Contacts :</h2>
         <ContactList />
     </div>);
 

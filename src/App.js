@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import {logAct} from 'redux/contacts/contacts-actions'
 import {useGetUserQuery} from 'services/authApi'
 import { useDispatch, useSelector } from 'react-redux';
+import HomePage from "page/HomePage/HomePage";
 
 function App() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<AuthPage />} >
+          <Route index element={<HomePage/>}/>
           <Route path='login' element={<Login />} />
           <Route path="register" element={<Registration />} />
           <Route path="contacts" element={<PhoneBookPage />} />

@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    justify-content: center;
+    padding: 45px;
+    }
+
+.h1{
+font-size: 40px;
+font-weight: bold;
+color: #0d6efd;
+}
+.h2{
+    margin: 25px 0;
+font-size: 30px;
+font-weight: bold;
+color: rgb(77, 72, 72);
+}
+.text{
+    font-weight: bold;
+    margin: 12px 0 0 0;
+}

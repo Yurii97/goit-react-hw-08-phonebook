@@ -4,14 +4,18 @@
     justify-content: flex-end;
     padding: 5px;
     border-bottom: 2px solid gray;
+    background-color: #cedff8;
 }
-
+.linkList{
+    display: flex;
+}
 .navLinc {
     padding: 5px 10px;    
     text-decoration: none;
     color: black;
     margin-right: 15px;
-    font-size: 18px;    
+    font-size: 18px;
+    font-weight: bold;    
 }
 .navLinc:hover {
     color: #0d6efd;   

@@ -25,10 +25,11 @@ function Layout() {
     return (<>
         <Toaster />
         <nav className={s.layoutNav}>
-            {!data || !isLoggedIn ? (<div >
+            {!data || !isLoggedIn ? (<div className={s.linkList}>
                 <NavLink to='login' className={s.navLinc}>Login</NavLink>
                 <NavLink to='register' className={s.navLinc}>Registration</NavLink>
-            </div>) : (<div className={s.userData}><span >Hello {data.name}</span>
+            </div>) : (<div className={s.userData}>
+                <span >Hello {data.name}</span>
                 <Button variant="primary" tupe='button' onClick={() => logoutUser(token)} className={s.button}>LogOut</Button>
             </div>)}            
         </nav>   
