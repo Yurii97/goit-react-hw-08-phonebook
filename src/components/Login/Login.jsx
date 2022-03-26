@@ -79,7 +79,7 @@ function Login() {
                 value={userPassword}
                 placeholder="Password"
                 onChange={handleChange}
-                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
             />
             </Form.Group>    
             <div className={s.btnList}>
