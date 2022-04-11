@@ -1,9 +1,5 @@
-.contact_button{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.contact_button{    
     margin-left: 15px;    
-    padding: 6px ;    
 }
 .contact{
     display: flex;
@@ -20,5 +16,7 @@
 }
     .text{
         font-weight: 600;
-
+    }
+    .contact_listButon{
+        display:flex ;
     }

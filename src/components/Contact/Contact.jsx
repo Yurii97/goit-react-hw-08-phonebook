@@ -32,7 +32,7 @@ export default function Contact({ id, name, number }) {
       {showModal && (<Modal onClose={togleModal}>
         <ContactForm onClose={togleModal} nameCont={name} numberCont={number} id={id} />
       </Modal>)}
-      <div>
+      <div className={s.contact_listButon}>
         <Button type="button"
           className={s.contact_button} onClick={() => togleModal()} disabled={isLoading}>
           <BsPenFill />
